@@ -5,17 +5,45 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    base: './',
+    plugins: [
+      {
+        name: 'github-pages-dev-transform',
+        transformIndexHtml(html, ctx) {
+          if (ctx.server) {
+            return html
+              .replace(
+                /<script[^>]*src=["']\.\/assets\/index\.js["'][^>]*><\/script>/gi,
+                '<script type="module" src="/src/main.tsx"></script>'
+              )
+              .replace(
+                /<link[^>]*href=["']\.\/assets\/index\.css["'][^>]*>/gi,
+                ''
+              );
+          }
+          return html;
+        },
+      },
+      react(),
+      tailwindcss(),
+    ],
+    build: {
+      outDir: 'dist',
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/index.js',
+          chunkFileNames: 'assets/[name].js',
+          assetFileNames: 'assets/[name].[ext]',
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
   };
