@@ -1,45 +1,402 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <script>
-      (function() {
-        try {
-          var _origFetch = window.fetch;
-          Object.defineProperty(window, 'fetch', {
-            get: function() { return _origFetch; },
-            set: function(val) { _origFetch = val; },
-            configurable: true,
-            enumerable: true
-          });
-        } catch (e) {}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Aplicación - Panel de Usuario y Pedidos</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
+        }
 
-        window.addEventListener('error', function(e) {
-          if (
-            (e.filename && e.filename.indexOf('chrome-extension://') !== -1) ||
-            (e.message && e.message.indexOf('fetch of #<Window>') !== -1)
-          ) {
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            return true;
-          }
-        }, true);
-      })();
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button.secondary {
+            background-color: #e5e7eb;
+            color: var(--text-color);
+        }
+
+        button.secondary:hover {
+            background-color: #d1d5db;
+        }
+
+        main {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 4rem auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .toggle-auth a {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .order-item {
+            background: #f9fafb;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-details p {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        .order-date {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Barra Superior -->
+    <header id="main-header" class="hidden">
+        <h1 id="app-title">Mi Aplicación</h1>
+        <div class="user-info">
+            <span id="welcome-user">Hola, Usuario</span>
+            <button class="secondary" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECCIÓN DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
+        <div id="auth-section" class="auth-container card">
+            <!-- Formulario de Login -->
+            <div id="login-form">
+                <h2>Iniciar Sesión</h2>
+                <div id="login-error" class="error-msg"></div>
+                <div class="form-group">
+                    <label for="login-email">Correo electrónico</label>
+                    <input type="email" id="login-email" placeholder="tu@correo.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                <button style="width: 100%;" onclick="iniciarSesion()">Entrar</button>
+                <div class="toggle-auth">
+                    ¿No tienes cuenta? <a onclick="mostrarRegistro()">Regístrate aquí</a>
+                </div>
+            </div>
+
+            <!-- Formulario de Registro -->
+            <div id="register-form" class="hidden">
+                <h2>Crear Cuenta</h2>
+                <div id="register-error" class="error-msg"></div>
+                <div class="form-group">
+                    <label for="reg-name">Nombre completo</label>
+                    <input type="text" id="reg-name" placeholder="Tu Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Correo electrónico</label>
+                    <input type="email" id="reg-email" placeholder="tu@correo.com">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" placeholder="••••••••">
+                </div>
+                <button style="width: 100%;" onclick="registrarUsuario()">Registrarse</button>
+                <div class="toggle-auth">
+                    ¿Ya tienes cuenta? <a onclick="mostrarLogin()">Inicia sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN PRINCIPAL DE LA APP (VISIBLE AL INICIAR SESIÓN) -->
+        <div id="app-section" class="hidden">
+            <!-- Crear Nuevo Pedido / Solicitud -->
+            <div class="card">
+                <h2>Hacer un Nuevo Pedido</h2>
+                <div class="form-group">
+                    <label for="order-desc">¿Qué deseas solicitar o guardar?</label>
+                    <textarea id="order-desc" rows="3" placeholder="Escribe aquí los detalles de tu pedido o requerimiento..."></textarea>
+                </div>
+                <button onclick="guardarPedido()">Guardar Pedido</button>
+            </div>
+
+            <!-- Historial de Pedidos del Usuario -->
+            <div class="card">
+                <h2>Mis Pedidos Guardados</h2>
+                <div id="orders-list">
+                    <p style="color: #6b7280; text-align: center;">No tienes pedidos guardados todavía.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Funciones de Autenticación y Gestión de Pedidos
+        function obtenerUsuarios() {
+            return JSON.parse(localStorage.getItem('app_usuarios')) || [];
+        }
+
+        function guardarUsuarios(usuarios) {
+            localStorage.setItem('app_usuarios', JSON.stringify(usuarios));
+        }
+
+        function obtenerSesionActual() {
+            return JSON.parse(localStorage.getItem('app_sesion_activa'));
+        }
+
+        function mostrarLogin() {
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('login-error').innerText = '';
+        }
+
+        function mostrarRegistro() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+            document.getElementById('register-error').innerText = '';
+        }
+
+        function registrarUsuario() {
+            const nombre = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const password = document.getElementById('reg-password').value;
+            const errorDiv = document.getElementById('register-error');
+
+            if (!nombre || !email || !password) {
+                errorDiv.innerText = 'Por favor completa todos los campos.';
+                return;
+            }
+
+            let usuarios = obtenerUsuarios();
+            if (usuarios.some(u => u.email === email)) {
+                errorDiv.innerText = 'Este correo ya está registrado.';
+                return;
+            }
+
+            usuarios.push({ nombre, email, password, pedidos: [] });
+            guardarUsuarios(usuarios);
+
+            // Iniciar sesión automáticamente
+            localStorage.setItem('app_sesion_activa', JSON.stringify({ nombre, email }));
+            verificarSesion();
+        }
+
+        function iniciarSesion() {
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            let usuarios = obtenerUsuarios();
+            let usuarioEncontrado = usuarios.find(u => u.email === email && u.password === password);
+
+            if (!usuarioEncontrado) {
+                errorDiv.innerText = 'Correo o contraseña incorrectos.';
+                return;
+            }
+
+            localStorage.setItem('app_sesion_activa', JSON.stringify({ nombre: usuarioEncontrado.nombre, email: usuarioEncontrado.email }));
+            verificarSesion();
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('app_sesion_activa');
+            verificarSesion();
+        }
+
+        function verificarSesion() {
+            const sesion = obtenerSesionActual();
+            const authSection = document.getElementById('auth-section');
+            const appSection = document.getElementById('app-section');
+            const mainHeader = document.getElementById('main-header');
+
+            if (sesion) {
+                authSection.classList.add('hidden');
+                appSection.classList.remove('hidden');
+                mainHeader.classList.remove('hidden');
+                document.getElementById('welcome-user').innerText = `Hola, ${sesion.nombre}`;
+                cargarPedidos();
+            } else {
+                authSection.classList.remove('hidden');
+                appSection.classList.add('hidden');
+                mainHeader.classList.add('hidden');
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+            }
+        }
+
+        function guardarPedido() {
+            const descripcion = document.getElementById('order-desc').value.trim();
+            if (!descripcion) {
+                alert('Escribe una descripción para tu pedido.');
+                return;
+            }
+
+            const sesion = obtenerSesionActual();
+            let usuarios = obtenerUsuarios();
+            let usuarioIndex = usuarios.findIndex(u => u.email === sesion.email);
+
+            if (usuarioIndex !== -1) {
+                const nuevoPedido = {
+                    id: Date.now(),
+                    descripcion: descripcion,
+                    fecha: new Date().toLocaleString()
+                };
+
+                usuarios[usuarioIndex].pedidos.unshift(nuevoPedido);
+                guardarUsuarios(usuarios);
+
+                document.getElementById('order-desc').value = '';
+                cargarPedidos();
+            }
+        }
+
+        function cargarPedidos() {
+            const sesion = obtenerSesionActual();
+            let usuarios = obtenerUsuarios();
+            let usuario = usuarios.find(u => u.email === sesion.email);
+            const ordersList = document.getElementById('orders-list');
+
+            if (!usuario || !usuario.pedidos || usuario.pedidos.length === 0) {
+                ordersList.innerHTML = `<p style="color: #6b7280; text-align: center;">No tienes pedidos guardados todavía.</p>`;
+                return;
+            }
+
+            ordersList.innerHTML = '';
+            usuario.pedidos.forEach(pedido => {
+                const item = document.createElement('div');
+                item.className = 'order-item';
+                item.innerHTML = `
+                    <div class="order-details">
+                        <p><strong>Pedido:</strong> ${pedido.descripcion}</p>
+                        <span class="order-date">${pedido.fecha}</span>
+                    </div>
+                `;
+                ordersList.appendChild(item);
+            });
+        }
+
+        // Ejecutar al cargar la página
+        window.onload = verificarSesion;
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Zory Delivery</title>
-    <meta name="description" content="Tu app de delivery favorita en Ayolas. Pedí comida, supermercado, farmacias y más con pedidos en tiempo real." />
-    <meta property="og:title" content="Zory Delivery" />
-    <meta property="og:description" content="Tu app de delivery favorita en Ayolas. Pedí comida, supermercado, farmacias y más con pedidos en tiempo real." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index.css">
-  </head>
-  <body class="bg-[#F6F7F9] text-gray-900 antialiased selection:bg-rose-500 selection:text-white">
-    <div id="root"></div>
-  </body>
+</body>
 </html>
