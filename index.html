@@ -1,402 +1,324 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Aplicación - Panel de Usuario y Pedidos</title>
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --text-color: #1f2937;
-            --border-color: #e5e7eb;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bebidas Rápidas</title>
+  <style>
+    /* Estilos Generales */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        header {
-            background-color: var(--card-bg);
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    header h1 {
+      color: #ff9800;
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+    }
 
-        header h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
+    header p {
+      color: #aaa;
+      font-size: 1rem;
+    }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
 
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
+    /* Secciones */
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
 
-        button:hover {
-            background-color: var(--primary-hover);
-        }
+    .card h2 {
+      color: #ff9800;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 8px;
+    }
 
-        button.secondary {
-            background-color: #e5e7eb;
-            color: var(--text-color);
-        }
+    /* Catálogo de Productos */
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        button.secondary:hover {
-            background-color: #d1d5db;
-        }
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2a2a2a;
+      padding: 12px 15px;
+      border-radius: 8px;
+    }
 
-        main {
-            flex: 1;
-            max-width: 900px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+    .product-info h3 {
+      font-size: 1.1rem;
+    }
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 0.5rem;
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
-        }
+    .product-info p {
+      color: #ff9800;
+      font-weight: bold;
+    }
 
-        h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.25rem;
-            color: var(--text-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
+    button {
+      background-color: #ff9800;
+      color: #121212;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
+    button:hover {
+      background-color: #e68a00;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
+    /* Carrito */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #444;
+      padding-bottom: 5px;
+    }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            font-size: 1rem;
-        }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 15px;
+      color: #ff9800;
+    }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
+    .btn-whatsapp {
+      width: 100%;
+      background-color: #25d366;
+      color: white;
+      padding: 12px;
+      font-size: 1.1rem;
+      margin-top: 15px;
+      border-radius: 8px;
+    }
 
-        .auth-container {
-            max-width: 400px;
-            margin: 4rem auto;
-        }
+    .btn-whatsapp:hover {
+      background-color: #1eb954;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    /* Ruleta */
+    .roulette-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .toggle-auth {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.875rem;
-        }
+    .wheel-box {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 20px 0;
+    }
 
-        .toggle-auth a {
-            color: var(--primary);
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 5px solid #ff9800;
+      box-sizing: border-border-box;
+      transition: transform 3s cubic-bezier(0.15, 0.99, 0.18, 0.99);
+      background: conic-gradient(
+        #e74c3c 0deg 60deg,
+        #3498db 60deg 120deg,
+        #2ecc71 120deg 180deg,
+        #f1c40f 180deg 240deg,
+        #9b59b6 240deg 300deg,
+        #e67e22 300deg 360deg
+      );
+    }
 
-        .toggle-auth a:hover {
-            text-decoration: underline;
-        }
+    .arrow {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 25px solid #ffffff;
+      z-index: 10;
+    }
 
-        .order-item {
-            background: #f9fafb;
-            border: 1px solid var(--border-color);
-            padding: 1rem;
-            border-radius: 0.375rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .order-details p {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-
-        .order-date {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-
-        .error-msg {
-            color: #dc2626;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
-    </style>
+    #prize-result {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2ecc71;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header / Barra Superior -->
-    <header id="main-header" class="hidden">
-        <h1 id="app-title">Mi Aplicación</h1>
-        <div class="user-info">
-            <span id="welcome-user">Hola, Usuario</span>
-            <button class="secondary" onclick="cerrarSesion()">Cerrar Sesión</button>
-        </div>
-    </header>
+  <header>
+    <h1>Bebidas Rápidas</h1>
+    <p>Haz tu pedido o prueba tu suerte en la ruleta</p>
+  </header>
 
-    <main>
-        <!-- SECCIÓN DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
-        <div id="auth-section" class="auth-container card">
-            <!-- Formulario de Login -->
-            <div id="login-form">
-                <h2>Iniciar Sesión</h2>
-                <div id="login-error" class="error-msg"></div>
-                <div class="form-group">
-                    <label for="login-email">Correo electrónico</label>
-                    <input type="email" id="login-email" placeholder="tu@correo.com">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" placeholder="••••••••">
-                </div>
-                <button style="width: 100%;" onclick="iniciarSesion()">Entrar</button>
-                <div class="toggle-auth">
-                    ¿No tienes cuenta? <a onclick="mostrarRegistro()">Regístrate aquí</a>
-                </div>
-            </div>
-
-            <!-- Formulario de Registro -->
-            <div id="register-form" class="hidden">
-                <h2>Crear Cuenta</h2>
-                <div id="register-error" class="error-msg"></div>
-                <div class="form-group">
-                    <label for="reg-name">Nombre completo</label>
-                    <input type="text" id="reg-name" placeholder="Tu Nombre">
-                </div>
-                <div class="form-group">
-                    <label for="reg-email">Correo electrónico</label>
-                    <input type="email" id="reg-email" placeholder="tu@correo.com">
-                </div>
-                <div class="form-group">
-                    <label for="reg-password">Contraseña</label>
-                    <input type="password" id="reg-password" placeholder="••••••••">
-                </div>
-                <button style="width: 100%;" onclick="registrarUsuario()">Registrarse</button>
-                <div class="toggle-auth">
-                    ¿Ya tienes cuenta? <a onclick="mostrarLogin()">Inicia sesión</a>
-                </div>
-            </div>
+  <div class="container">
+    
+    <!-- Sección del Catálogo -->
+    <div class="card">
+      <h2>Menú de Bebidas</h2>
+      <div class="product-list">
+        <div class="product-item">
+          <div class="product-info">
+            <h3>Coca-Cola 1.5L</h3>
+            <p>12.000 Gs.</p>
+          </div>
+          <button onclick="agregarAlCarrito('Coca-Cola 1.5L', 12000)">Agregar</button>
         </div>
 
-        <!-- SECCIÓN PRINCIPAL DE LA APP (VISIBLE AL INICIAR SESIÓN) -->
-        <div id="app-section" class="hidden">
-            <!-- Crear Nuevo Pedido / Solicitud -->
-            <div class="card">
-                <h2>Hacer un Nuevo Pedido</h2>
-                <div class="form-group">
-                    <label for="order-desc">¿Qué deseas solicitar o guardar?</label>
-                    <textarea id="order-desc" rows="3" placeholder="Escribe aquí los detalles de tu pedido o requerimiento..."></textarea>
-                </div>
-                <button onclick="guardarPedido()">Guardar Pedido</button>
-            </div>
-
-            <!-- Historial de Pedidos del Usuario -->
-            <div class="card">
-                <h2>Mis Pedidos Guardados</h2>
-                <div id="orders-list">
-                    <p style="color: #6b7280; text-align: center;">No tienes pedidos guardados todavía.</p>
-                </div>
-            </div>
+        <div class="product-item">
+          <div class="product-info">
+            <h3>Cerveza Pilsen 940ml</h3>
+            <p>15.000 Gs.</p>
+          </div>
+          <button onclick="agregarAlCarrito('Cerveza Pilsen 940ml', 15000)">Agregar</button>
         </div>
-    </main>
 
-    <script>
-        // Funciones de Autenticación y Gestión de Pedidos
-        function obtenerUsuarios() {
-            return JSON.parse(localStorage.getItem('app_usuarios')) || [];
-        }
+        <div class="product-item">
+          <div class="product-info">
+            <h3>Agua Mineral 2L</h3>
+            <p>6.000 Gs.</p>
+          </div>
+          <button onclick="agregarAlCarrito('Agua Mineral 2L', 6000)">Agregar</button>
+        </div>
+      </div>
+    </div>
 
-        function guardarUsuarios(usuarios) {
-            localStorage.setItem('app_usuarios', JSON.stringify(usuarios));
-        }
+    <!-- Sección del Carrito -->
+    <div class="card">
+      <h2>Tu Pedido</h2>
+      <div id="cart-list">
+        <p style="color: #888;">El carrito está vacío.</p>
+      </div>
+      <div class="total" id="total-price">Total: 0 Gs.</div>
+      <button class="btn-whatsapp" onclick="enviarPedido()">Pedir por WhatsApp</button>
+    </div>
 
-        function obtenerSesionActual() {
-            return JSON.parse(localStorage.getItem('app_sesion_activa'));
-        }
+    <!-- Sección de la Ruleta -->
+    <div class="card roulette-container">
+      <h2>Ruleta de Descuentos</h2>
+      <p>Gira la ruleta y gana premios para tu pedido</p>
+      
+      <div class="wheel-box">
+        <div class="arrow"></div>
+        <div class="wheel" id="wheel"></div>
+      </div>
 
-        function mostrarLogin() {
-            document.getElementById('register-form').classList.add('hidden');
-            document.getElementById('login-form').classList.remove('hidden');
-            document.getElementById('login-error').innerText = '';
-        }
+      <button onclick="girarRuleta()">¡Girar Ruleta!</button>
+      <div id="prize-result"></div>
+    </div>
 
-        function mostrarRegistro() {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('register-form').classList.remove('hidden');
-            document.getElementById('register-error').innerText = '';
-        }
+  </div>
 
-        function registrarUsuario() {
-            const nombre = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim().toLowerCase();
-            const password = document.getElementById('reg-password').value;
-            const errorDiv = document.getElementById('register-error');
+  <script>
+    let carrito = [];
+    let total = 0;
+    let girado = false;
 
-            if (!nombre || !email || !password) {
-                errorDiv.innerText = 'Por favor completa todos los campos.';
-                return;
-            }
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      total += precio;
+      actualizarCarrito();
+    }
 
-            let usuarios = obtenerUsuarios();
-            if (usuarios.some(u => u.email === email)) {
-                errorDiv.innerText = 'Este correo ya está registrado.';
-                return;
-            }
+    function actualizarCarrito() {
+      const cartList = document.getElementById('cart-list');
+      const totalPrice = document.getElementById('total-price');
 
-            usuarios.push({ nombre, email, password, pedidos: [] });
-            guardarUsuarios(usuarios);
+      if (carrito.length === 0) {
+        cartList.innerHTML = '<p style="color: #888;">El carrito está vacío.</p>';
+        totalPrice.innerText = 'Total: 0 Gs.';
+        return;
+      }
 
-            // Iniciar sesión automáticamente
-            localStorage.setItem('app_sesion_activa', JSON.stringify({ nombre, email }));
-            verificarSesion();
-        }
+      cartList.innerHTML = '';
+      carrito.forEach((item, index) => {
+        cartList.innerHTML += `
+          <div class="cart-item">
+            <span>${item.nombre}</span>
+            <span>${item.precio.toLocaleString('es-PY')} Gs.</span>
+          </div>
+        `;
+      });
 
-        function iniciarSesion() {
-            const email = document.getElementById('login-email').value.trim().toLowerCase();
-            const password = document.getElementById('login-password').value;
-            const errorDiv = document.getElementById('login-error');
+      totalPrice.innerText = `Total: ${total.toLocaleString('es-PY')} Gs.`;
+    }
 
-            let usuarios = obtenerUsuarios();
-            let usuarioEncontrado = usuarios.find(u => u.email === email && u.password === password);
+    function enviarPedido() {
+      if (carrito.length === 0) {
+        alert('Por favor agrega al menos un producto al carrito.');
+        return;
+      }
 
-            if (!usuarioEncontrado) {
-                errorDiv.innerText = 'Correo o contraseña incorrectos.';
-                return;
-            }
+      let mensaje = 'Hola, quisiera hacer el siguiente pedido:\n\n';
+      carrito.forEach(item => {
+        mensaje += `- ${item.nombre}: ${item.precio.toLocaleString('es-PY')} Gs.\n`;
+      });
+      mensaje += `\n*Total: ${total.toLocaleString('es-PY')} Gs.*`;
 
-            localStorage.setItem('app_sesion_activa', JSON.stringify({ nombre: usuarioEncontrado.nombre, email: usuarioEncontrado.email }));
-            verificarSesion();
-        }
+      const numeroWhatsApp = '595981000000'; // Reemplaza por tu número de teléfono con código de país
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
 
-        function cerrarSesion() {
-            localStorage.removeItem('app_sesion_activa');
-            verificarSesion();
-        }
+    function girarRuleta() {
+      if (girado) {
+        alert('Ya has girado la ruleta en esta sesión.');
+        return;
+      }
 
-        function verificarSesion() {
-            const sesion = obtenerSesionActual();
-            const authSection = document.getElementById('auth-section');
-            const appSection = document.getElementById('app-section');
-            const mainHeader = document.getElementById('main-header');
+      const wheel = document.getElementById('wheel');
+      const prizeResult = document.getElementById('prize-result');
+      
+      const gradosAleatorios = Math.floor(Math.random() * 360) + 1440; // 4 vueltas completas mínimo
+      wheel.style.transform = `rotate(${gradosAleatorios}deg)`;
+      girado = true;
 
-            if (sesion) {
-                authSection.classList.add('hidden');
-                appSection.classList.remove('hidden');
-                mainHeader.classList.remove('hidden');
-                document.getElementById('welcome-user').innerText = `Hola, ${sesion.nombre}`;
-                cargarPedidos();
-            } else {
-                authSection.classList.remove('hidden');
-                appSection.classList.add('hidden');
-                mainHeader.classList.add('hidden');
-                document.getElementById('login-email').value = '';
-                document.getElementById('login-password').value = '';
-            }
-        }
-
-        function guardarPedido() {
-            const descripcion = document.getElementById('order-desc').value.trim();
-            if (!descripcion) {
-                alert('Escribe una descripción para tu pedido.');
-                return;
-            }
-
-            const sesion = obtenerSesionActual();
-            let usuarios = obtenerUsuarios();
-            let usuarioIndex = usuarios.findIndex(u => u.email === sesion.email);
-
-            if (usuarioIndex !== -1) {
-                const nuevoPedido = {
-                    id: Date.now(),
-                    descripcion: descripcion,
-                    fecha: new Date().toLocaleString()
-                };
-
-                usuarios[usuarioIndex].pedidos.unshift(nuevoPedido);
-                guardarUsuarios(usuarios);
-
-                document.getElementById('order-desc').value = '';
-                cargarPedidos();
-            }
-        }
-
-        function cargarPedidos() {
-            const sesion = obtenerSesionActual();
-            let usuarios = obtenerUsuarios();
-            let usuario = usuarios.find(u => u.email === sesion.email);
-            const ordersList = document.getElementById('orders-list');
-
-            if (!usuario || !usuario.pedidos || usuario.pedidos.length === 0) {
-                ordersList.innerHTML = `<p style="color: #6b7280; text-align: center;">No tienes pedidos guardados todavía.</p>`;
-                return;
-            }
-
-            ordersList.innerHTML = '';
-            usuario.pedidos.forEach(pedido => {
-                const item = document.createElement('div');
-                item.className = 'order-item';
-                item.innerHTML = `
-                    <div class="order-details">
-                        <p><strong>Pedido:</strong> ${pedido.descripcion}</p>
-                        <span class="order-date">${pedido.fecha}</span>
-                    </div>
-                `;
-                ordersList.appendChild(item);
-            });
-        }
-
-        // Ejecutar al cargar la página
-        window.onload = verificarSesion;
-    </script>
+      setTimeout(() => {
+        const premios = ['10% de Descuento', 'Envío Gratis', 'Hielo Gratis', 'Sigue Intentando', '5% de Descuento', 'Vasos Gratis'];
+        const premioGanado = premios[Math.floor(Math.random() * premios.length)];
+        prizeResult.innerText = `¡Ganaste: ${premioGanado}!`;
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
