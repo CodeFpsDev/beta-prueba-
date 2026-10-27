@@ -1,324 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bebidas Rápidas</title>
-  <style>
-    /* Estilos Generales */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function() {
+        try {
+          var _origFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _origFetch; },
+            set: function(val) { _origFetch = val; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
 
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    header h1 {
-      color: #ff9800;
-      font-size: 2.5rem;
-      margin-bottom: 5px;
-    }
-
-    header p {
-      color: #aaa;
-      font-size: 1rem;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 600px;
-    }
-
-    /* Secciones */
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .card h2 {
-      color: #ff9800;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 8px;
-    }
-
-    /* Catálogo de Productos */
-    .product-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .product-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #2a2a2a;
-      padding: 12px 15px;
-      border-radius: 8px;
-    }
-
-    .product-info h3 {
-      font-size: 1.1rem;
-    }
-
-    .product-info p {
-      color: #ff9800;
-      font-weight: bold;
-    }
-
-    button {
-      background-color: #ff9800;
-      color: #121212;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      background-color: #e68a00;
-    }
-
-    /* Carrito */
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      border-bottom: 1px dashed #444;
-      padding-bottom: 5px;
-    }
-
-    .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-align: right;
-      margin-top: 15px;
-      color: #ff9800;
-    }
-
-    .btn-whatsapp {
-      width: 100%;
-      background-color: #25d366;
-      color: white;
-      padding: 12px;
-      font-size: 1.1rem;
-      margin-top: 15px;
-      border-radius: 8px;
-    }
-
-    .btn-whatsapp:hover {
-      background-color: #1eb954;
-    }
-
-    /* Ruleta */
-    .roulette-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .wheel-box {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      margin: 20px 0;
-    }
-
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 5px solid #ff9800;
-      box-sizing: border-border-box;
-      transition: transform 3s cubic-bezier(0.15, 0.99, 0.18, 0.99);
-      background: conic-gradient(
-        #e74c3c 0deg 60deg,
-        #3498db 60deg 120deg,
-        #2ecc71 120deg 180deg,
-        #f1c40f 180deg 240deg,
-        #9b59b6 240deg 300deg,
-        #e67e22 300deg 360deg
-      );
-    }
-
-    .arrow {
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-top: 25px solid #ffffff;
-      z-index: 10;
-    }
-
-    #prize-result {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #2ecc71;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Bebidas Rápidas</h1>
-    <p>Haz tu pedido o prueba tu suerte en la ruleta</p>
-  </header>
-
-  <div class="container">
-    
-    <!-- Sección del Catálogo -->
-    <div class="card">
-      <h2>Menú de Bebidas</h2>
-      <div class="product-list">
-        <div class="product-item">
-          <div class="product-info">
-            <h3>Coca-Cola 1.5L</h3>
-            <p>12.000 Gs.</p>
-          </div>
-          <button onclick="agregarAlCarrito('Coca-Cola 1.5L', 12000)">Agregar</button>
-        </div>
-
-        <div class="product-item">
-          <div class="product-info">
-            <h3>Cerveza Pilsen 940ml</h3>
-            <p>15.000 Gs.</p>
-          </div>
-          <button onclick="agregarAlCarrito('Cerveza Pilsen 940ml', 15000)">Agregar</button>
-        </div>
-
-        <div class="product-item">
-          <div class="product-info">
-            <h3>Agua Mineral 2L</h3>
-            <p>6.000 Gs.</p>
-          </div>
-          <button onclick="agregarAlCarrito('Agua Mineral 2L', 6000)">Agregar</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sección del Carrito -->
-    <div class="card">
-      <h2>Tu Pedido</h2>
-      <div id="cart-list">
-        <p style="color: #888;">El carrito está vacío.</p>
-      </div>
-      <div class="total" id="total-price">Total: 0 Gs.</div>
-      <button class="btn-whatsapp" onclick="enviarPedido()">Pedir por WhatsApp</button>
-    </div>
-
-    <!-- Sección de la Ruleta -->
-    <div class="card roulette-container">
-      <h2>Ruleta de Descuentos</h2>
-      <p>Gira la ruleta y gana premios para tu pedido</p>
-      
-      <div class="wheel-box">
-        <div class="arrow"></div>
-        <div class="wheel" id="wheel"></div>
-      </div>
-
-      <button onclick="girarRuleta()">¡Girar Ruleta!</button>
-      <div id="prize-result"></div>
-    </div>
-
-  </div>
-
-  <script>
-    let carrito = [];
-    let total = 0;
-    let girado = false;
-
-    function agregarAlCarrito(nombre, precio) {
-      carrito.push({ nombre, precio });
-      total += precio;
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      const cartList = document.getElementById('cart-list');
-      const totalPrice = document.getElementById('total-price');
-
-      if (carrito.length === 0) {
-        cartList.innerHTML = '<p style="color: #888;">El carrito está vacío.</p>';
-        totalPrice.innerText = 'Total: 0 Gs.';
-        return;
-      }
-
-      cartList.innerHTML = '';
-      carrito.forEach((item, index) => {
-        cartList.innerHTML += `
-          <div class="cart-item">
-            <span>${item.nombre}</span>
-            <span>${item.precio.toLocaleString('es-PY')} Gs.</span>
-          </div>
-        `;
-      });
-
-      totalPrice.innerText = `Total: ${total.toLocaleString('es-PY')} Gs.`;
-    }
-
-    function enviarPedido() {
-      if (carrito.length === 0) {
-        alert('Por favor agrega al menos un producto al carrito.');
-        return;
-      }
-
-      let mensaje = 'Hola, quisiera hacer el siguiente pedido:\n\n';
-      carrito.forEach(item => {
-        mensaje += `- ${item.nombre}: ${item.precio.toLocaleString('es-PY')} Gs.\n`;
-      });
-      mensaje += `\n*Total: ${total.toLocaleString('es-PY')} Gs.*`;
-
-      const numeroWhatsApp = '595981000000'; // Reemplaza por tu número de teléfono con código de país
-      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-    }
-
-    function girarRuleta() {
-      if (girado) {
-        alert('Ya has girado la ruleta en esta sesión.');
-        return;
-      }
-
-      const wheel = document.getElementById('wheel');
-      const prizeResult = document.getElementById('prize-result');
-      
-      const gradosAleatorios = Math.floor(Math.random() * 360) + 1440; // 4 vueltas completas mínimo
-      wheel.style.transform = `rotate(${gradosAleatorios}deg)`;
-      girado = true;
-
-      setTimeout(() => {
-        const premios = ['10% de Descuento', 'Envío Gratis', 'Hielo Gratis', 'Sigue Intentando', '5% de Descuento', 'Vasos Gratis'];
-        const premioGanado = premios[Math.floor(Math.random() * premios.length)];
-        prizeResult.innerText = `¡Ganaste: ${premioGanado}!`;
-      }, 3000);
-    }
-  </script>
-</body>
+        window.addEventListener('error', function(e) {
+          if (
+            (e.filename && e.filename.indexOf('chrome-extension://') !== -1) ||
+            (e.message && e.message.indexOf('fetch of #<Window>') !== -1)
+          ) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Zory Delivery</title>
+    <meta name="description" content="Tu app de delivery favorita en Ayolas. Pedí comida, supermercado, farmacias y más con pedidos en tiempo real." />
+    <meta property="og:title" content="Zory Delivery" />
+    <meta property="og:description" content="Tu app de delivery favorita en Ayolas. Pedí comida, supermercado, farmacias y más con pedidos en tiempo real." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index.css">
+  </head>
+  <body class="bg-[#F6F7F9] text-gray-900 antialiased selection:bg-rose-500 selection:text-white">
+    <div id="root"></div>
+  </body>
 </html>

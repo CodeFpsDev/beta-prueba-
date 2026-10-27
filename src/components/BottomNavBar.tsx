@@ -3,7 +3,6 @@ import {
   Home, 
   Store, 
   MessageSquare, 
-  Dices, 
   Phone, 
   ShoppingBag 
 } from 'lucide-react';
@@ -13,7 +12,6 @@ interface BottomNavBarProps {
   onNavigateHome: () => void;
   onNavigateLocales: () => void;
   onOpenReviewModal: () => void;
-  onOpenRuletaModal: () => void;
   onOpenCart: () => void;
   cartItemCount: number;
 }
@@ -23,7 +21,6 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
   onNavigateHome,
   onNavigateLocales,
   onOpenReviewModal,
-  onOpenRuletaModal,
   onOpenCart,
   cartItemCount,
 }) => {
@@ -73,18 +70,6 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
             )}
           </div>
           <span className="text-[10px] mt-1 tracking-tight">Locales</span>
-        </button>
-
-        {/* Ruleta "¿Qué ceno hoy?" */}
-        <button
-          onClick={onOpenRuletaModal}
-          className="flex-1 flex flex-col items-center justify-center py-1 rounded-2xl text-amber-600 hover:text-amber-700 font-medium group active:scale-95"
-        >
-          <div className="relative">
-            <Dices className="w-5 h-5 group-hover:rotate-45" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-          </div>
-          <span className="text-[10px] mt-1 font-bold tracking-tight">Ruleta</span>
         </button>
 
         {/* Reseña Anónima */}

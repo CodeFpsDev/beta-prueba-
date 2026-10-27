@@ -14,7 +14,6 @@ import { MyOrdersModal } from './components/MyOrdersModal';
 import { AddStoreModal } from './components/AddStoreModal';
 import { BottomNavBar } from './components/BottomNavBar';
 import { ReviewModal } from './components/ReviewModal';
-import { RuletaModal } from './components/RuletaModal';
 import type { 
   Store, 
   Product, 
@@ -61,7 +60,6 @@ export default function App() {
   const [isMyOrdersOpen, setIsMyOrdersOpen] = useState(false);
   const [isAddStoreOpen, setIsAddStoreOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
-  const [isRuletaOpen, setIsRuletaOpen] = useState(false);
 
   // 3-second Countdown & Order State
   const [isCountdownOpen, setIsCountdownOpen] = useState(false);
@@ -596,7 +594,6 @@ export default function App() {
           }, 60);
         }}
         onOpenReviewModal={() => setIsReviewOpen(true)}
-        onOpenRuletaModal={() => setIsRuletaOpen(true)}
         onOpenCart={() => setIsCartOpen(true)}
         cartItemCount={totalCartCount}
       />
@@ -627,20 +624,6 @@ export default function App() {
       <ReviewModal
         isOpen={isReviewOpen}
         onClose={() => setIsReviewOpen(false)}
-      />
-
-      {/* Ruleta "¿Qué ceno hoy?" Modal */}
-      <RuletaModal
-        isOpen={isRuletaOpen}
-        onClose={() => setIsRuletaOpen(false)}
-        onSearchDish={(dishQuery) => {
-          handleBackToHome();
-          setSearchQuery(dishQuery);
-          setTimeout(() => {
-            const el = document.getElementById('seccion-locales');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 80);
-        }}
       />
 
       {/* Product Detail Modal (for variants and special instructions) */}
