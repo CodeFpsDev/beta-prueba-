@@ -1,0 +1,6 @@
+{
+  "name": "Zory Delivery",
+  "description": "Tu app de delivery favorita en Ayolas. Pedí comida, supermercado, farmacias y más con pedidos en tiempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
