@@ -62,7 +62,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   if (!isOpen) return null;
 
   const subtotal = cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0);
-  const deliveryFee = store?.deliveryFee ?? 5000;
+  const deliveryFee = store?.deliveryFee ?? 10000;
   const total = subtotal + deliveryFee;
 
   // Change calculation for cash payment
