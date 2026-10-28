@@ -95,7 +95,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
         <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center gap-1 font-medium text-gray-700">
             <Bike className="w-3.5 h-3.5 text-[#F85800]" />
-            <span>Envío {formatGs(store.deliveryFee || 5000)}</span>
+            <span>Envío {formatGs(store.deliveryFee || 10000)}</span>
           </div>
 
           <div className="text-[11px] font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
