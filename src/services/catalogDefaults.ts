@@ -15,7 +15,7 @@ export const EXTRA_DEFAULT_STORES: Store[] = [
     horario: '18:00 a 03:00 hs',
     rating: 4.9,
     deliveryTime: '15-25 min',
-    deliveryFee: 5000,
+    deliveryFee: 10000,
   },
   {
     id: 'farmacia',
@@ -31,7 +31,7 @@ export const EXTRA_DEFAULT_STORES: Store[] = [
     horario: '24 Horas',
     rating: 4.8,
     deliveryTime: '15-30 min',
-    deliveryFee: 5000,
+    deliveryFee: 10000,
   },
   {
     id: 'supermercados',
@@ -47,7 +47,7 @@ export const EXTRA_DEFAULT_STORES: Store[] = [
     horario: '07:30 a 22:00 hs',
     rating: 4.7,
     deliveryTime: '25-40 min',
-    deliveryFee: 5000,
+    deliveryFee: 10000,
   },
 ];
 
