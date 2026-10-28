@@ -41,9 +41,9 @@ export const Header: React.FC<HeaderProps> = ({
   const [showCityDropdown, setShowCityDropdown] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs transition-all">
+    <header className="sticky top-0 z-30 zh-bg transition-all">
       {/* Top Banner - Status & City */}
-      <div className="bg-[#EA003D] text-white text-xs px-4 py-1.5 flex items-center justify-between">
+      <div className="zh-strip text-white text-xs px-4 py-1.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="relative">
             <button
@@ -67,12 +67,12 @@ export const Header: React.FC<HeaderProps> = ({
                       onSelectCity(city);
                       setShowCityDropdown(false);
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-rose-50 hover:text-[#EA003D] transition-colors ${
-                      selectedCity === city ? 'font-bold text-[#EA003D] bg-rose-50/60' : ''
+                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-rose-50 hover:text-[#F85800] transition-colors ${
+                      selectedCity === city ? 'font-bold text-[#F85800] bg-rose-50/60' : ''
                     }`}
                   >
                     <span>{city}</span>
-                    {selectedCity === city && <span className="w-1.5 h-1.5 rounded-full bg-[#EA003D]"></span>}
+                    {selectedCity === city && <span className="w-1.5 h-1.5 rounded-full bg-[#F85800]"></span>}
                   </button>
                 ))}
               </div>
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Clean top right status - customer friendly */}
         <div className="flex items-center gap-2 text-[11px] text-white/90 font-medium">
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
             <span>Abierto ahora</span>
           </span>
         </div>
@@ -102,14 +102,14 @@ export const Header: React.FC<HeaderProps> = ({
           {activeStoreName && onBackToHome ? (
             <button
               onClick={onBackToHome}
-              className="flex items-center gap-2 text-gray-700 hover:text-[#EA003D] font-bold text-sm transition-colors group"
+              className="flex items-center gap-2 text-white font-bold text-sm transition-colors group"
             >
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-rose-100 flex items-center justify-center transition-colors">
+              <div className="w-8 h-8 rounded-full zh-circle flex items-center justify-center transition-colors">
                 ←
               </div>
               <div className="hidden xs:block text-left">
-                <span className="text-[10px] text-gray-400 block font-normal uppercase">Volver</span>
-                <span className="text-xs font-semibold text-gray-700">Explorar locales</span>
+                <span className="text-[10px] zh-sub block font-normal uppercase">Volver</span>
+                <span className="text-xs font-semibold text-white">Explorar locales</span>
               </div>
             </button>
           ) : (
@@ -117,16 +117,16 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={onBackToHome}
               className="flex items-center gap-2.5 cursor-pointer select-none"
             >
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#EA003D] to-[#FF4B2B] flex items-center justify-center text-white shadow-md shadow-rose-500/25">
+              <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-[#F85800] shadow-md">
                 <span className="font-extrabold text-2xl tracking-tighter">Z</span>
               </div>
               <div>
                 <div className="flex items-center gap-1.5 leading-none">
-                  <span className="font-extrabold text-xl tracking-tight text-gray-900 font-display">
-                    zori<span className="text-[#EA003D]">delivery</span>
+                  <span className="font-extrabold text-xl tracking-tight zh-brand font-display">
+                    zori<span className="text-[#F85800]">delivery</span>
                   </span>
                 </div>
-                <p className="text-[10px] text-gray-400 font-medium">Ayolas, Paraguay</p>
+                <p className="text-[10px] zh-sub font-medium">Ayolas, Paraguay</p>
               </div>
             </div>
           )}
@@ -158,15 +158,15 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenAddStore}
-            className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-[#EA003D] px-3 py-2 rounded-xl hover:bg-rose-50 transition-colors"
+            className="hidden md:flex items-center gap-1.5 text-xs font-semibold zh-btn px-3 py-2 rounded-xl transition-colors"
           >
-            <StoreIcon className="w-4 h-4 text-[#EA003D]" />
+            <StoreIcon className="w-4 h-4 text-[#F85800]" />
             <span>Sumar mi local</span>
           </button>
 
           <button
             onClick={onOpenMyOrders}
-            className="flex items-center gap-1 text-xs font-semibold text-gray-700 hover:text-gray-900 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold zh-btn px-3 py-2 rounded-xl transition-colors"
             title="Ver mis pedidos recientes"
           >
             <Clock className="w-4 h-4 text-gray-500" />
@@ -176,12 +176,12 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Cart Button */}
           <button
             onClick={onOpenCart}
-            className="relative flex items-center gap-2 bg-[#EA003D] hover:bg-[#d40037] text-white px-3.5 py-2 rounded-xl font-bold shadow-md shadow-rose-500/20 active:scale-95 transition-all"
+            className="relative flex items-center gap-2 zh-cart px-3.5 py-2 rounded-xl font-bold shadow-md active:scale-95 transition-all"
           >
             <ShoppingBag className="w-4 h-4" />
             <span className="text-xs hidden sm:inline">Carrito</span>
             {totalCartItems > 0 && (
-              <span className="bg-white text-[#EA003D] text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center -ml-0.5 shadow-xs">
+              <span className="bg-[#F85800] text-white text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center -ml-0.5 shadow-xs">
                 {totalCartItems}
               </span>
             )}

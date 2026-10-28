@@ -71,7 +71,7 @@ export const OrderCountdownModal: React.FC<OrderCountdownModalProps> = ({
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#EA003D', '#FF5A00', '#25D366', '#FFD700', '#FFFFFF'],
+          colors: ['#F85800', '#F85800', '#FFA630', '#FFD700', '#FFFFFF'],
         });
       } catch (e) {}
 
@@ -93,7 +93,7 @@ export const OrderCountdownModal: React.FC<OrderCountdownModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top subtle badge */}
-        <div className="inline-flex items-center gap-1 bg-rose-50 text-[#EA003D] text-[11px] font-extrabold uppercase px-3 py-1 rounded-full mb-3">
+        <div className="inline-flex items-center gap-1 bg-rose-50 text-[#F85800] text-[11px] font-extrabold uppercase px-3 py-1 rounded-full mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Confirmación Inteligente</span>
         </div>
@@ -120,7 +120,7 @@ export const OrderCountdownModal: React.FC<OrderCountdownModalProps> = ({
               cx="72"
               cy="72"
               r="52"
-              stroke="#EA003D"
+              stroke="#F85800"
               strokeWidth="8"
               strokeDasharray="326"
               strokeDashoffset={strokeDashoffset}
@@ -134,7 +134,7 @@ export const OrderCountdownModal: React.FC<OrderCountdownModalProps> = ({
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             {secondsLeft > 0 ? (
               <>
-                <span className="text-4xl font-black text-[#EA003D] font-display animate-pulse">
+                <span className="text-4xl font-black text-[#F85800] font-display animate-pulse">
                   {secondsLeft}
                 </span>
                 <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">
@@ -150,7 +150,7 @@ export const OrderCountdownModal: React.FC<OrderCountdownModalProps> = ({
         {/* Dynamic status pill */}
         <div className="bg-gray-50 border border-gray-100 rounded-2xl p-3 mb-5 flex items-center justify-center gap-2">
           {stageIcon === 'order' && <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />}
-          {stageIcon === 'kitchen' && <Bike className="w-4 h-4 text-[#EA003D] animate-bounce" />}
+          {stageIcon === 'kitchen' && <Bike className="w-4 h-4 text-[#F85800] animate-bounce" />}
           {stageIcon === 'done' && <MessageSquare className="w-4 h-4 text-emerald-500" />}
           <span className="text-xs font-semibold text-gray-700">{stageText}</span>
         </div>

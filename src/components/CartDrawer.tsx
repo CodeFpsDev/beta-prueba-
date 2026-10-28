@@ -132,7 +132,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         {/* Cart Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-rose-50 text-[#EA003D] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-rose-50 text-[#F85800] flex items-center justify-center">
               <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
@@ -178,7 +178,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </p>
             <button
               onClick={onClose}
-              className="mt-5 bg-[#EA003D] text-white px-5 py-2.5 rounded-2xl text-xs font-bold shadow-md hover:bg-[#d40037] transition-all"
+              className="mt-5 bg-[#F85800] text-white px-5 py-2.5 rounded-2xl text-xs font-bold shadow-md hover:bg-[#D94E00] transition-all"
             >
               Explorar menú
             </button>
@@ -194,7 +194,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   className="w-10 h-10 rounded-xl object-contain bg-white p-1 border border-gray-100"
                 />
                 <div className="flex-1 min-w-0">
-                  <span className="text-[10px] text-[#EA003D] font-extrabold uppercase tracking-wider block">
+                  <span className="text-[10px] text-[#F85800] font-extrabold uppercase tracking-wider block">
                     Local seleccionado
                   </span>
                   <h4 className="text-sm font-bold text-gray-900 truncate font-display">
@@ -220,7 +220,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       {item.nombre}
                     </h5>
                     {item.variante && (
-                      <span className="text-[11px] font-semibold text-[#EA003D] block">
+                      <span className="text-[11px] font-semibold text-[#F85800] block">
                         • {item.variante}
                       </span>
                     )}
@@ -297,7 +297,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     type="button"
                     onClick={handleGetLocation}
                     disabled={gpsLoading}
-                    className="text-[11px] text-[#EA003D] hover:underline font-bold flex items-center gap-1"
+                    className="text-[11px] text-[#F85800] hover:underline font-bold flex items-center gap-1"
                   >
                     <Navigation className={`w-3 h-3 ${gpsLoading ? 'animate-spin' : ''}`} />
                     <span>{gpsLocation ? 'GPS capturado ✓' : 'Usar mi GPS'}</span>
@@ -323,7 +323,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     onClick={() => setMetodoPago('efectivo')}
                     className={`p-2.5 rounded-xl border text-center flex flex-col items-center gap-1 transition-all ${
                       metodoPago === 'efectivo'
-                        ? 'border-[#EA003D] bg-rose-50/60 text-[#EA003D] font-bold'
+                        ? 'border-[#F85800] bg-rose-50/60 text-[#F85800] font-bold'
                         : 'border-gray-200 bg-gray-50 text-gray-600'
                     }`}
                   >
@@ -336,7 +336,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     onClick={() => setMetodoPago('transferencia')}
                     className={`p-2.5 rounded-xl border text-center flex flex-col items-center gap-1 transition-all ${
                       metodoPago === 'transferencia'
-                        ? 'border-[#EA003D] bg-rose-50/60 text-[#EA003D] font-bold'
+                        ? 'border-[#F85800] bg-rose-50/60 text-[#F85800] font-bold'
                         : 'border-gray-200 bg-gray-50 text-gray-600'
                     }`}
                   >
@@ -349,7 +349,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     onClick={() => setMetodoPago('tarjeta')}
                     className={`p-2.5 rounded-xl border text-center flex flex-col items-center gap-1 transition-all ${
                       metodoPago === 'tarjeta'
-                        ? 'border-[#EA003D] bg-rose-50/60 text-[#EA003D] font-bold'
+                        ? 'border-[#F85800] bg-rose-50/60 text-[#F85800] font-bold'
                         : 'border-gray-200 bg-gray-50 text-gray-600'
                     }`}
                   >
@@ -379,7 +379,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
               {/* Validation alert */}
               {validationError && (
-                <div className="flex items-center gap-2 p-3 bg-rose-50 text-[#EA003D] rounded-xl text-xs font-semibold">
+                <div className="flex items-center gap-2 p-3 bg-rose-50 text-[#F85800] rounded-xl text-xs font-semibold">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{validationError}</span>
                 </div>
@@ -403,14 +403,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
               <div className="flex justify-between text-sm font-extrabold text-gray-900 pt-1.5 border-t border-gray-100">
                 <span>Total a pagar</span>
-                <span className="text-base text-[#EA003D] font-display">{formatGs(total)}</span>
+                <span className="text-base text-[#F85800] font-display">{formatGs(total)}</span>
               </div>
             </div>
 
             {/* 3-Second Trigger Button */}
             <button
               onClick={handleConfirmOrder}
-              className="w-full bg-[#EA003D] hover:bg-[#d40037] text-white py-3.5 px-4 rounded-2xl font-black text-sm flex items-center justify-between shadow-xl shadow-rose-500/25 active:scale-98 transition-all"
+              className="w-full bg-[#F85800] hover:bg-[#D94E00] text-white py-3.5 px-4 rounded-2xl font-black text-sm flex items-center justify-between shadow-xl shadow-rose-500/25 active:scale-98 transition-all"
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4" />

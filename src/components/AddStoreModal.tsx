@@ -54,7 +54,7 @@ export const AddStoreModal: React.FC<AddStoreModalProps> = ({ isOpen, onClose })
               </div>
             </div>
             <div className="flex items-start gap-2.5">
-              <Zap className="w-4 h-4 text-[#EA003D] shrink-0 mt-0.5" />
+              <Zap className="w-4 h-4 text-[#F85800] shrink-0 mt-0.5" />
               <div className="text-xs text-gray-700">
                 <strong>Catálogo 100% autogestionable:</strong> Cambiá fotos, precios y platos desde tu propio celular en segundos.
               </div>
@@ -75,7 +75,7 @@ export const AddStoreModal: React.FC<AddStoreModalProps> = ({ isOpen, onClose })
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full bg-[#25D366] hover:bg-[#1ebd5a] text-white py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition-all"
+            className="w-full bg-[#FFA630] hover:bg-[#1ebd5a] text-white py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition-all"
           >
             <MessageSquare className="w-4 h-4 fill-white" />
             <span>Contactar por WhatsApp</span>

@@ -28,7 +28,7 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 w-full z-[1000] bg-white border-t border-gray-200 shadow-[0_-4px_25px_rgba(0,0,0,0.12)] select-none"
+      className="fixed bottom-0 left-0 right-0 w-full z-40 bg-white border-t border-gray-200 shadow-[0_-4px_25px_rgba(0,0,0,0.12)] select-none"
       style={{
         paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 8px)',
         transform: 'translate3d(0, 0, 0)',
@@ -41,14 +41,14 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           onClick={onNavigateHome}
           className={`flex-1 flex flex-col items-center justify-center py-1 rounded-2xl active:scale-95 ${
             currentTab === 'inicio'
-              ? 'text-[#EA003D] font-extrabold'
+              ? 'text-[#F85800] font-extrabold'
               : 'text-gray-500 hover:text-gray-900 font-medium'
           }`}
         >
           <div className="relative">
             <Home className="w-5 h-5 stroke-[2.2]" />
             {currentTab === 'inicio' && (
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#EA003D]" />
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#F85800]" />
             )}
           </div>
           <span className="text-[10px] mt-1 tracking-tight">Inicio</span>
@@ -59,14 +59,14 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           onClick={onNavigateLocales}
           className={`flex-1 flex flex-col items-center justify-center py-1 rounded-2xl active:scale-95 ${
             currentTab === 'locales'
-              ? 'text-[#EA003D] font-extrabold'
+              ? 'text-[#F85800] font-extrabold'
               : 'text-gray-500 hover:text-gray-900 font-medium'
           }`}
         >
           <div className="relative">
             <Store className="w-5 h-5 stroke-[2.2]" />
             {currentTab === 'locales' && (
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#EA003D]" />
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#F85800]" />
             )}
           </div>
           <span className="text-[10px] mt-1 tracking-tight">Locales</span>
@@ -95,7 +95,7 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
         {/* Carrito Shortcut */}
         <button
           onClick={onOpenCart}
-          className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-[#EA003D] text-white shadow-md shadow-rose-500/30 hover:bg-[#d40037] active:scale-90 ml-1 shrink-0"
+          className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-[#F85800] text-white shadow-md shadow-rose-500/30 hover:bg-[#D94E00] active:scale-90 ml-1 shrink-0"
           title="Ver Carrito"
         >
           <ShoppingBag className="w-5 h-5" />

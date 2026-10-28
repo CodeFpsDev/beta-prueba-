@@ -42,7 +42,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
         {/* Badges on top */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
           {store.destacado && (
-            <span className="bg-[#EA003D] text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full flex items-center gap-1 shadow-md">
+            <span className="bg-[#F85800] text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full flex items-center gap-1 shadow-md">
               <Flame className="w-3 h-3" />
               Más Vendido
             </span>
@@ -78,7 +78,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
       <div className="pt-6 p-4 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between gap-2">
-            <h3 className="font-extrabold text-base text-gray-900 group-hover:text-[#EA003D] transition-colors font-display line-clamp-1">
+            <h3 className="font-extrabold text-base text-gray-900 group-hover:text-[#F85800] transition-colors font-display line-clamp-1">
               {store.nombre}
             </h3>
             <div className="flex items-center gap-1 text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-lg shrink-0">
@@ -94,7 +94,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
 
         <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center gap-1 font-medium text-gray-700">
-            <Bike className="w-3.5 h-3.5 text-[#EA003D]" />
+            <Bike className="w-3.5 h-3.5 text-[#F85800]" />
             <span>Envío {formatGs(store.deliveryFee || 5000)}</span>
           </div>
 

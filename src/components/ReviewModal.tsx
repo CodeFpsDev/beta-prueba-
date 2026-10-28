@@ -52,7 +52,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => 
       >
         <div className="flex items-center justify-between pb-3 border-b border-gray-100">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-rose-50 text-[#EA003D] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-rose-50 text-[#F85800] flex items-center justify-center">
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
@@ -85,7 +85,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => 
             </p>
             <button
               onClick={handleReset}
-              className="mt-4 bg-[#EA003D] hover:bg-[#d40037] text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md transition-all"
+              className="mt-4 bg-[#F85800] hover:bg-[#D94E00] text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md transition-all"
             >
               Aceptar
             </button>
@@ -143,7 +143,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => 
               <button
                 type="submit"
                 disabled={isSubmitting || !mensaje.trim()}
-                className="bg-[#25D366] hover:bg-[#1ebd5a] disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
+                className="bg-[#FFA630] hover:bg-[#1ebd5a] disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>{isSubmitting ? 'Enviando...' : 'Enviar Reseña'}</span>

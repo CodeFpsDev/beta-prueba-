@@ -45,7 +45,7 @@ export const CategoryChips: React.FC<CategoryChipsProps> = ({
               onClick={() => onSelectCategory(cat.id)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all duration-200 select-none ${
                 isSelected
-                  ? 'bg-[#EA003D] text-white shadow-md shadow-rose-500/25 scale-102 ring-2 ring-rose-400/40'
+                  ? 'bg-[#F85800] text-white shadow-md shadow-rose-500/25 scale-102 ring-2 ring-rose-400/40'
                   : cat.highlight
                   ? 'bg-amber-50 text-amber-900 border border-amber-200/80 hover:bg-amber-100 hover:border-amber-300'
                   : 'bg-white text-gray-700 border border-gray-200/80 hover:border-gray-300 hover:bg-gray-50'

@@ -146,6 +146,16 @@ export default function App() {
     quantity: number,
     instructions: string
   ) => {
+    // Si el carrito ya tiene productos de otro local, avisar antes de vaciarlo (antes se borraba en silencio)
+    if (cartItems.length > 0 && cartItems[0].localId !== product.local) {
+      const actual = stores.find((s) => s.id === cartItems[0].localId)?.nombre || 'otro local';
+      const nuevo = stores.find((s) => s.id === product.local)?.nombre || 'este local';
+      const ok = window.confirm(
+        `Tu carrito tiene productos de ${actual}.\n\n¿Querés vaciarlo y empezar un pedido nuevo en ${nuevo}?`
+      );
+      if (!ok) return;
+    }
+
     const key = variant ? `${product.key}::${slug(variant.etiqueta)}` : product.key;
     const price = variant ? variant.precio : product.precio || 0;
     const name = variant ? `${product.nombre} (${variant.etiqueta})` : product.nombre;
@@ -391,7 +401,7 @@ export default function App() {
   const totalCartAmount = cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0);
 
   return (
-    <div className="min-h-screen bg-[#F6F7F9] text-gray-900 selection:bg-rose-500 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-[#FFF3EA] text-gray-900 selection:bg-rose-500 selection:text-white flex flex-col">
       {/* Header */}
       <Header
         totalCartItems={totalCartCount}
@@ -412,8 +422,8 @@ export default function App() {
         {loading ? (
           <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
             <div className="relative w-20 h-20 mb-4 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-4 border-rose-100 border-t-[#EA003D] animate-spin" />
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#EA003D] to-[#FF4B2B] flex items-center justify-center text-white font-extrabold text-2xl shadow-md">
+              <div className="absolute inset-0 rounded-full border-4 border-rose-100 border-t-[#F85800] animate-spin" />
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#F85800] to-[#FF8A3D] flex items-center justify-center text-white font-extrabold text-2xl shadow-md">
                 Z
               </div>
             </div>
@@ -431,7 +441,7 @@ export default function App() {
             <p className="text-xs text-gray-600 mt-1 mb-4">{error}</p>
             <button
               onClick={() => loadData(true)}
-              className="bg-[#EA003D] hover:bg-[#d40037] text-white px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 mx-auto shadow-md"
+              className="bg-[#F85800] hover:bg-[#D94E00] text-white px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 mx-auto shadow-md"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Reintentar conexión</span>
@@ -485,7 +495,7 @@ export default function App() {
 
               {filteredStores.length === 0 ? (
                 <div className="bg-white rounded-3xl p-10 text-center border border-gray-100 shadow-xs max-w-md mx-auto my-6">
-                  <div className="w-16 h-16 rounded-full bg-rose-50 text-[#EA003D] flex items-center justify-center mx-auto mb-3 text-2xl">
+                  <div className="w-16 h-16 rounded-full bg-rose-50 text-[#F85800] flex items-center justify-center mx-auto mb-3 text-2xl">
                     🏪
                   </div>
                   <h3 className="font-extrabold text-gray-800 text-lg">No hay locales en esta categoría</h3>
@@ -497,7 +507,7 @@ export default function App() {
                       setSelectedCategory('todos');
                       setSearchQuery('');
                     }}
-                    className="mt-4 px-4 py-2 bg-[#EA003D] text-white text-xs font-bold rounded-xl"
+                    className="mt-4 px-4 py-2 bg-[#F85800] text-white text-xs font-bold rounded-xl"
                   >
                     Ver todos los locales
                   </button>
@@ -555,7 +565,7 @@ export default function App() {
         <div className="fixed bottom-[74px] left-4 right-4 max-w-md mx-auto z-40 animate-in slide-in-from-bottom duration-300">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="w-full bg-[#EA003D] hover:bg-[#d40037] text-white p-4 rounded-2xl font-extrabold shadow-xl shadow-rose-500/30 flex items-center justify-between active:scale-98 transition-all"
+            className="w-full bg-[#F85800] hover:bg-[#D94E00] text-white p-4 rounded-2xl font-extrabold shadow-xl shadow-rose-500/30 flex items-center justify-between active:scale-98 transition-all"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-sm font-black">
@@ -567,7 +577,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-[#EA003D] px-3.5 py-2 rounded-xl shadow-xs">
+            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-[#F85800] px-3.5 py-2 rounded-xl shadow-xs">
               <span>Ver Carrito</span>
               <span>→</span>
             </div>
@@ -603,7 +613,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="font-extrabold text-sm text-gray-800 font-display">
-              zori<span className="text-[#EA003D]">delivery</span>
+              zori<span className="text-[#F85800]">delivery</span>
             </span>
             <span className="text-gray-300">•</span>
             <span>Ayolas, Misiones, Paraguay 🇵🇾</span>

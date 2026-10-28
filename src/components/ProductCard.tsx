@@ -37,7 +37,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <div className="flex-1 flex flex-col justify-between min-w-0 pr-1">
         <div>
           <div className="flex items-start justify-between gap-1">
-            <h4 className="font-bold text-sm sm:text-base text-gray-900 group-hover:text-[#EA003D] transition-colors line-clamp-1 font-display">
+            <h4 className="font-bold text-sm sm:text-base text-gray-900 group-hover:text-[#F85800] transition-colors line-clamp-1 font-display">
               {product.nombre}
             </h4>
           </div>
@@ -92,7 +92,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   e.stopPropagation();
                   onSelect(product);
                 }}
-                className="bg-white/95 hover:bg-white text-[#EA003D] shadow-md border border-gray-100 rounded-full px-2 py-1 text-[10px] font-black flex items-center gap-1 active:scale-95 transition-all"
+                className="bg-white/95 hover:bg-white text-[#F85800] shadow-md border border-gray-100 rounded-full px-2 py-1 text-[10px] font-black flex items-center gap-1 active:scale-95 transition-all"
               >
                 <Plus className="w-3 h-3 stroke-[3]" />
                 <span>PEDIR</span>
@@ -100,7 +100,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             ) : quantityInCart > 0 ? (
               <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 bg-[#EA003D] text-white rounded-full p-0.5 shadow-md"
+                className="flex items-center gap-1 bg-[#F85800] text-white rounded-full p-0.5 shadow-md"
               >
                 <button
                   onClick={(e) => onQuickRemove(product, e)}
@@ -121,7 +121,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             ) : (
               <button
                 onClick={(e) => onQuickAdd(product, e)}
-                className="w-8 h-8 rounded-full bg-white/95 hover:bg-[#EA003D] text-[#EA003D] hover:text-white shadow-md border border-gray-100 flex items-center justify-center active:scale-90 transition-all"
+                className="w-8 h-8 rounded-full bg-white/95 hover:bg-[#F85800] text-[#F85800] hover:text-white shadow-md border border-gray-100 flex items-center justify-center active:scale-90 transition-all"
                 title="Agregar al pedido"
               >
                 <Plus className="w-4 h-4 stroke-[3]" />

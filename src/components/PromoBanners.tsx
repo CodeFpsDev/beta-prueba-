@@ -17,7 +17,7 @@ export const PromoBanners: React.FC<PromoBannersProps> = ({
       title: 'Tu delivery favorito en Ayolas',
       desc: 'Comida, bebidas, farmacia y más en minutos.',
       action: 'Explorar locales',
-      bg: 'from-[#EA003D] via-[#FF4B2B] to-[#FF8C00]',
+      bg: 'from-[#F85800] via-[#FF8A3D] to-[#FF8C00]',
       icon: Zap,
       onClick: undefined,
     },
@@ -27,7 +27,7 @@ export const PromoBanners: React.FC<PromoBannersProps> = ({
       title: 'Los mejores precios de Ayolas',
       desc: 'Pizzas, lomitos, hamburguesas y postres con envío rápido.',
       action: 'Ver platos',
-      bg: 'from-emerald-600 via-teal-600 to-cyan-600',
+      bg: 'from-purple-600 via-teal-600 to-cyan-600',
       icon: Utensils,
       onClick: undefined,
     },
@@ -83,7 +83,7 @@ export const PromoBanners: React.FC<PromoBannersProps> = ({
                 className="bg-white text-gray-900 hover:bg-white/95 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md active:scale-95 transition-all"
               >
                 <span>{current.action}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#EA003D]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#F85800]" />
               </button>
             ) : (
               <div className="bg-white/20 backdrop-blur-xs text-white px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5">

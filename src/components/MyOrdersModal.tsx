@@ -24,7 +24,7 @@ export const MyOrdersModal: React.FC<MyOrdersModalProps> = ({
       >
         <div className="flex items-center justify-between pb-3 border-b border-gray-100">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-rose-50 text-[#EA003D] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-rose-50 text-[#F85800] flex items-center justify-center">
               <Clock className="w-5 h-5" />
             </div>
             <div>
@@ -82,7 +82,7 @@ export const MyOrdersModal: React.FC<MyOrdersModalProps> = ({
 
                 <div className="pt-2 border-t border-gray-200/60 flex items-center justify-between text-xs font-bold text-gray-900">
                   <span>Total con envío:</span>
-                  <span className="text-sm text-[#EA003D] font-display">{formatGs(ord.total)}</span>
+                  <span className="text-sm text-[#F85800] font-display">{formatGs(ord.total)}</span>
                 </div>
               </div>
             ))

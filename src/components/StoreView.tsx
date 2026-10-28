@@ -107,7 +107,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F7F9] pb-28">
+    <div className="min-h-screen bg-[#FFF3EA] pb-28">
       {/* Hero Banner */}
       <div className="relative h-44 sm:h-64 w-full bg-gray-900 overflow-hidden">
         <img
@@ -197,7 +197,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
             </div>
             <div className="flex flex-col items-center justify-center p-2 rounded-2xl bg-gray-50">
               <span className="text-gray-400 text-[10px] font-semibold uppercase flex items-center gap-1">
-                <Bike className="w-3 h-3 text-[#EA003D]" /> Envío
+                <Bike className="w-3 h-3 text-[#F85800]" /> Envío
               </span>
               <span className="font-bold text-gray-800 mt-0.5">{formatGs(store.deliveryFee || 5000)}</span>
             </div>
@@ -234,13 +234,13 @@ export const StoreView: React.FC<StoreViewProps> = ({
 
         {/* Category Tabs (Sticky) */}
         {categories.length > 0 && (
-          <div className="sticky top-[105px] z-20 bg-[#F6F7F9]/95 backdrop-blur-md py-3 -mx-4 px-4 overflow-x-auto no-scrollbar">
+          <div className="sticky top-[105px] z-20 bg-[#FFF3EA]/95 backdrop-blur-md py-3 -mx-4 px-4 overflow-x-auto no-scrollbar">
             <div className="flex items-center gap-2 min-w-max">
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
                   selectedCategory === 'all'
-                    ? 'bg-[#EA003D] text-white shadow-md shadow-rose-500/20'
+                    ? 'bg-[#F85800] text-white shadow-md shadow-rose-500/20'
                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
                 }`}
               >
@@ -254,7 +254,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
                       selectedCategory === cat
-                        ? 'bg-[#EA003D] text-white shadow-md shadow-rose-500/20'
+                        ? 'bg-[#F85800] text-white shadow-md shadow-rose-500/20'
                         : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
                     }`}
                   >
@@ -270,7 +270,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
         <div className="mt-4 space-y-8">
           {Object.keys(groupedProducts).length === 0 ? (
             <div className="text-center py-12 bg-white rounded-3xl border border-gray-100 p-8">
-              <div className="w-16 h-16 rounded-full bg-rose-50 text-[#EA003D] flex items-center justify-center mx-auto mb-3 text-2xl">
+              <div className="w-16 h-16 rounded-full bg-rose-50 text-[#F85800] flex items-center justify-center mx-auto mb-3 text-2xl">
                 🔍
               </div>
               <h3 className="font-extrabold text-gray-800 text-lg">No encontramos productos</h3>
@@ -292,7 +292,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
               <section key={categoria} className="space-y-3">
                 <div className="flex items-center justify-between border-b border-gray-200/80 pb-2">
                   <h2 className="text-lg font-extrabold text-gray-900 font-display flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#EA003D]" />
+                    <span className="w-2 h-2 rounded-full bg-[#F85800]" />
                     {categoria}
                   </h2>
                   <span className="text-xs text-gray-400 font-medium">
@@ -323,7 +323,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
         <div className="fixed bottom-[74px] left-4 right-4 max-w-md mx-auto z-40 animate-in slide-in-from-bottom duration-300">
           <button
             onClick={onOpenCart}
-            className="w-full bg-[#EA003D] hover:bg-[#d40037] text-white p-4 rounded-2xl font-extrabold shadow-xl shadow-rose-500/30 flex items-center justify-between active:scale-98 transition-all"
+            className="w-full bg-[#F85800] hover:bg-[#D94E00] text-white p-4 rounded-2xl font-extrabold shadow-xl shadow-rose-500/30 flex items-center justify-between active:scale-98 transition-all"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-sm font-black">
@@ -335,7 +335,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-[#EA003D] px-3.5 py-2 rounded-xl shadow-xs">
+            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-[#F85800] px-3.5 py-2 rounded-xl shadow-xs">
               <span>Ver Carrito</span>
               <span>→</span>
             </div>

@@ -81,7 +81,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 {product.descripcion}
               </p>
             )}
-            <div className="mt-2 text-lg font-black text-[#EA003D] font-display">
+            <div className="mt-2 text-lg font-black text-[#F85800] font-display">
               {formatGs(currentPrice)}
             </div>
           </div>
@@ -106,7 +106,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => setSelectedVariant(v)}
                       className={`flex items-center justify-between p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
                         isChecked
-                          ? 'border-[#EA003D] bg-rose-50/40 text-gray-900 shadow-xs'
+                          ? 'border-[#F85800] bg-rose-50/40 text-gray-900 shadow-xs'
                           : 'border-gray-100 bg-gray-50/50 hover:bg-gray-50 text-gray-700'
                       }`}
                     >
@@ -114,7 +114,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         <div
                           className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
                             isChecked
-                              ? 'border-[#EA003D] bg-[#EA003D]'
+                              ? 'border-[#F85800] bg-[#F85800]'
                               : 'border-gray-300 bg-white'
                           }`}
                         >
@@ -174,7 +174,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           {/* Add Button */}
           <button
             onClick={handleAdd}
-            className="flex-1 bg-[#EA003D] hover:bg-[#d40037] text-white py-3.5 px-4 rounded-2xl font-extrabold text-sm flex items-center justify-between shadow-lg shadow-rose-500/25 active:scale-98 transition-all"
+            className="flex-1 bg-[#F85800] hover:bg-[#D94E00] text-white py-3.5 px-4 rounded-2xl font-extrabold text-sm flex items-center justify-between shadow-lg shadow-rose-500/25 active:scale-98 transition-all"
           >
             <span>Agregar al pedido</span>
             <span className="font-display">{formatGs(totalPrice)}</span>
