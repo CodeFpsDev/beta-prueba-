@@ -1,5 +1,8 @@
 name: Deploy to GitHub Pages
 
+# La app ya viene compilada (index.html + carpeta assets/), así que se publica tal cual,
+# sin instalar dependencias ni compilar. Esto evita el error "Dependencies lock file is not found".
+
 on:
   push:
     branches:
@@ -17,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -26,17 +29,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build production app
-        run: npm run build
+      - name: Preparar archivos publicados
+        run: |
+          mkdir _site
+          cp index.html _site/
+          cp -r assets _site/assets
+          touch _site/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -44,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
