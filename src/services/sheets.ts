@@ -166,7 +166,7 @@ export function normalizeData(rawLocales: Record<string, string>[], rawProductos
         horario: l.horario || '18:00 a 00:00 hs',
         rating: Number(baseRating.toFixed(1)),
         deliveryTime: `${baseTime}-${baseTime + 15} min`,
-        deliveryFee: 5000,
+        deliveryFee: 10000,
       };
     });
 
