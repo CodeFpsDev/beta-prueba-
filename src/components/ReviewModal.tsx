@@ -143,7 +143,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => 
               <button
                 type="submit"
                 disabled={isSubmitting || !mensaje.trim()}
-                className="bg-[#FFA630] hover:bg-[#1ebd5a] disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
+                className="bg-[#F85800] hover:bg-[#D94E00] disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md active:scale-95 transition-all"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>{isSubmitting ? 'Enviando...' : 'Enviar Reseña'}</span>

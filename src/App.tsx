@@ -698,7 +698,7 @@ export default function App() {
 
       {/* Order Success Receipt Modal */}
       <OrderSuccessModal
-        order={completedOrder}
+        order={isSuccessOpen ? completedOrder : null}
         whatsappUrl={whatsappUrl}
         onClose={() => setIsSuccessOpen(false)}
         onViewOrders={() => {

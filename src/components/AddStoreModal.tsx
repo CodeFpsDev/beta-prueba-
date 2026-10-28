@@ -75,7 +75,7 @@ export const AddStoreModal: React.FC<AddStoreModalProps> = ({ isOpen, onClose })
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full bg-[#FFA630] hover:bg-[#1ebd5a] text-white py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition-all"
+            className="w-full bg-[#F85800] hover:bg-[#D94E00] text-white py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition-all"
           >
             <MessageSquare className="w-4 h-4 fill-white" />
             <span>Contactar por WhatsApp</span>

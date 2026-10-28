@@ -74,7 +74,7 @@ export const MyOrdersModal: React.FC<MyOrdersModalProps> = ({
                 <div className="text-xs text-gray-600 space-y-1">
                   {ord.productos.map((p, pIdx) => (
                     <div key={pIdx} className="flex justify-between">
-                      <span>{p.cantidad}x {p.nombre} {p.variante ? `(${p.variante})` : ''}</span>
+                      <span>{p.cantidad}x {p.nombre} {p.variante && !String(p.nombre).includes(p.variante) ? `(${p.variante})` : ''}</span>
                       <span className="font-semibold text-gray-800">{formatGs(p.precio * p.cantidad)}</span>
                     </div>
                   ))}
