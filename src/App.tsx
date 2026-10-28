@@ -249,7 +249,7 @@ export default function App() {
     if (!pendingStore || !pendingCustomerInfo || cartItems.length === 0) return;
 
     const subtotal = cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0);
-    const deliveryFee = pendingStore.deliveryFee || 5000;
+    const deliveryFee = pendingStore.deliveryFee || 10000;
     const total = subtotal + deliveryFee;
     const hora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -686,8 +686,8 @@ export default function App() {
           cartItems={cartItems}
           customerInfo={pendingCustomerInfo}
           subtotal={cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0)}
-          deliveryFee={pendingStore.deliveryFee || 5000}
-          total={cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0) + (pendingStore.deliveryFee || 5000)}
+          deliveryFee={pendingStore.deliveryFee || 10000}
+          total={cartItems.reduce((acc, it) => acc + it.precio * it.cantidad, 0) + (pendingStore.deliveryFee || 10000)}
           onCancel={() => {
             setIsCountdownOpen(false);
             setIsCartOpen(true);
