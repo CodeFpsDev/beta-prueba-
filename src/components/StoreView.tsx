@@ -199,7 +199,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
               <span className="text-gray-400 text-[10px] font-semibold uppercase flex items-center gap-1">
                 <Bike className="w-3 h-3 text-[#F85800]" /> Envío
               </span>
-              <span className="font-bold text-gray-800 mt-0.5">{formatGs(store.deliveryFee || 5000)}</span>
+              <span className="font-bold text-gray-800 mt-0.5">{formatGs(store.deliveryFee || 10000)}</span>
             </div>
             <div className="flex flex-col items-center justify-center p-2 rounded-2xl bg-gray-50">
               <span className="text-gray-400 text-[10px] font-semibold uppercase flex items-center gap-1">
