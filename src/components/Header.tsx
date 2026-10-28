@@ -135,18 +135,18 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Central Search Bar (Expanded on desktop/tablet) */}
         <div className="flex-1 max-w-lg mx-2 hidden sm:block">
           <div className="relative">
-            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="zh-sicon absolute top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Buscá pizzas, hamburguesas, farmacias, bodegas..."
-              className="w-full bg-gray-100/80 hover:bg-gray-100 focus:bg-white text-gray-800 text-sm pl-10 pr-4 py-2 rounded-full border border-transparent focus:border-rose-400 focus:ring-3 focus:ring-rose-500/15 outline-none transition-all"
+              className="zh-input w-full text-gray-800 text-sm border border-transparent focus:border-rose-400 focus:ring-3 focus:ring-rose-500/15 outline-none transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearchChange('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs bg-gray-200 hover:bg-gray-300 w-4 h-4 rounded-full flex items-center justify-center"
+                className="zh-clear absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs bg-gray-200 hover:bg-gray-300 w-4 h-4 rounded-full flex items-center justify-center"
               >
                 ✕
               </button>
@@ -190,20 +190,20 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="sm:hidden px-4 pb-2.5">
+      <div className="sm:hidden px-4 pb-4">
         <div className="relative">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="zh-sicon absolute top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Buscá comidas o locales..."
-            className="w-full bg-gray-100 text-gray-800 text-xs pl-9 pr-8 py-2 rounded-xl border border-transparent focus:border-rose-400 focus:bg-white focus:ring-2 focus:ring-rose-500/15 outline-none"
+            className="zh-input w-full text-gray-800 text-sm border border-transparent focus:border-rose-400 focus:bg-white focus:ring-2 focus:ring-rose-500/15 outline-none"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+              className="zh-clear absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
             >
               ✕
             </button>

@@ -70,3 +70,11 @@
 .zh-cart{background:#fff;color:#F85800}.zh-cart:hover{background:#FFF4EC}
 .zh-circle{background:rgba(255,255,255,.22);color:#fff}
 .zh-sub{color:rgba(255,255,255,.85)}
+
+.zh-bg{border-radius:0 0 28px 28px}
+.zh-input{background:#fff;border:0;border-radius:9999px;padding:13px 56px 13px 20px;box-shadow:0 2px 8px rgba(124,45,18,.18);outline:none}
+.zh-input:focus{box-shadow:0 0 0 3px rgba(255,255,255,.45),0 2px 8px rgba(124,45,18,.18)}
+.zh-sicon{right:6px;width:40px;height:40px;padding:11px;border-radius:9999px;background:#F85800;color:#fff;pointer-events:none}
+.zh-clear{right:56px!important}
+
+.zh-bg{padding-bottom:14px}
