@@ -81,3 +81,7 @@
 
 .zf-credit{margin-top:14px;padding-top:12px;border-top:1px solid #FFE6D5;font-size:11px;color:#9CA3AF;text-align:center}
 .zf-credit strong{color:#F85800;font-weight:800}
+
+.zf-socials{display:flex;gap:12px;justify-content:center}
+.zf-social{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:9999px;background:#F85800;color:#fff;box-shadow:0 4px 10px rgba(248,88,0,.28);transition:transform .15s,background .15s}
+.zf-social:hover{background:#D94E00;transform:translateY(-2px)}
