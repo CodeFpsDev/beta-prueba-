@@ -49,8 +49,10 @@ const ICON_G = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" v
 
 /* ---------- estilos ---------- */
 const css = `
-.zy-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:12px;padding:8px 10px;font:700 12px/1 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;max-width:130px;transition:background .15s}
-.zy-btn:hover{background:rgba(255,255,255,.32)}
+.zy-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#F85800;border:0;border-radius:12px;padding:9px 11px;font:800 12px/1 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;max-width:130px;box-shadow:0 4px 10px rgba(124,45,18,.22);transition:background .15s,transform .15s}
+.zy-btn:hover{background:#FFF4EC}.zy-btn:active{transform:scale(.96)}
+/* El carrito de arriba se oculta: queda el botón de carrito de la barra inferior */
+header .zh-cart{display:none!important}
 .zy-btn img{width:22px;height:22px;border-radius:9999px;object-fit:cover;flex:none}
 .zy-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .zy-btn .zy-txt{display:none}
@@ -120,7 +122,7 @@ function montar() {
     montando = false;
     const cart = document.querySelector('header .zh-cart');
     const host = cart && cart.parentElement;
-    if (host && btn.parentElement !== host) host.prepend(btn);
+    if (host && btn.parentElement !== host) host.append(btn);
   });
 }
 new MutationObserver(() => { montar(); prellenar(); }).observe(document.body, { childList: true, subtree: true });
