@@ -30,6 +30,8 @@ export async function registrarPedidoEnFirebase(pedido: Omit<OrderRecord, 'cread
   try {
     const docRef = await addDoc(collection(db, 'pedidos'), {
       ...pedido,
+      // uid del cliente si inició sesión (lo define zory-auth.js); null si pide como invitado
+      uid: (window as any).zoryUser?.uid ?? null,
       creado: serverTimestamp(),
     });
     console.log('Pedido guardado exitosamente en Firebase Firestore con ID:', docRef.id);
