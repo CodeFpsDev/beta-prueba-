@@ -1,14 +1,3 @@
-/* Zory Delivery - Login de clientes con Google + perfil (Firebase Auth + Firestore)
- *
- * Archivo independiente: no necesita compilar. Se carga desde index.html con
- *   <script type="module" src="./zory-auth.js"></script>
- *
- * Guarda en Firestore, colección "clientes", un documento por cliente (id = uid):
- *   { nombre, telefono, direcciones: [{ id, etiqueta, texto }], email, foto, actualizado }
- * Los pedidos nuevos llevan el campo "uid" (lo agrega la app) para armar el historial de cada cliente.
- * El login es OPCIONAL: sin iniciar sesión se puede pedir igual, como invitado.
- */
-
 const FB = 'https://www.gstatic.com/firebasejs/11.10.0/';
 const CONFIG = {
   apiKey: 'AIzaSyCoIVVXK3csLvtg9E7wDCjGt--fam_szzQ',
@@ -22,7 +11,7 @@ const ESTADOS = { pendiente: 'Pendiente', confirmado: 'Confirmado', en_camino: '
 
 let SDK = null, auth = null, fs = null;
 let user = null;
-let perfil = { nombre: '', telefono: '', direcciones: [] };
+let perfil = { nombre: '', telefono: '', direcciones: [], pedidos: [] };
 let listo = false;       // ya se sabe si hay sesión o no
 let overlay = null;
 let tab = 'perfil';
@@ -238,20 +227,25 @@ async function cargarPedidos() {
     snap.forEach((d) => lista.push({ ...d.data(), _id: d.id }));
   } catch (e) {
     console.warn('No se pudo leer el historial de Firestore, se muestra el de este dispositivo:', e);
-    try { lista = JSON.parse(localStorage.getItem('zori_orders_history') || '[]'); } catch (e2) { lista = []; }
+    lista = [];
   }
-  return lista.sort((a, b) => enMillis(b) - enMillis(a)).slice(0, 30);
+  // Pedidos guardados dentro del perfil del cliente (funcionan aunque las reglas de 'pedidos' no permitan leer)
+  const propios = Array.isArray(perfil.pedidos) ? perfil.pedidos.slice() : [];
+  const iguales = (a, b) => norm(a.tienda) === norm(b.tienda) && Number(a.total) === Number(b.total) && Math.abs(enMillis(a) - enMillis(b)) < 180000;
+  const todos = lista.slice();
+  for (const m of propios) if (!todos.some((x) => iguales(x, m))) todos.push(m);
+  return todos.sort((a, b) => enMillis(b) - enMillis(a)).slice(0, 30);
 }
 
 /* ---------- perfil en Firestore ---------- */
 async function leerPerfil() {
-  perfil = { nombre: '', telefono: '', direcciones: [] };
+  perfil = { nombre: '', telefono: '', direcciones: [], pedidos: [] };
   try {
     const { f } = SDK;
     const s = await f.getDoc(f.doc(fs, 'clientes', user.uid));
     if (s.exists()) {
       const d = s.data();
-      perfil = { nombre: d.nombre || '', telefono: d.telefono || '', direcciones: Array.isArray(d.direcciones) ? d.direcciones : [] };
+      perfil = { nombre: d.nombre || '', telefono: d.telefono || '', direcciones: Array.isArray(d.direcciones) ? d.direcciones : [], pedidos: Array.isArray(d.pedidos) ? d.pedidos : [] };
     }
   } catch (e) { console.warn('No se pudo leer el perfil:', e); }
   if (!perfil.nombre && user.displayName) perfil.nombre = user.displayName;
@@ -261,7 +255,7 @@ async function guardarPerfil() {
   try {
     const { f } = SDK;
     await f.setDoc(f.doc(fs, 'clientes', user.uid), {
-      nombre: perfil.nombre || '', telefono: perfil.telefono || '', direcciones: perfil.direcciones || [],
+      nombre: perfil.nombre || '', telefono: perfil.telefono || '', direcciones: perfil.direcciones || [], pedidos: perfil.pedidos || [],
       email: user.email || '', foto: user.photoURL || '', actualizado: new Date().toISOString(),
     }, { merge: true });
     pintarBoton();
@@ -320,7 +314,7 @@ async function iniciar() {
   } catch (e) { console.warn('Firebase Auth no se pudo cargar:', e); listo = true; return; }
   SDK.a.onAuthStateChanged(auth, async (u) => {
     user = u || null;
-    if (user) await leerPerfil(); else perfil = { nombre: '', telefono: '', direcciones: [] };
+    if (user) await leerPerfil(); else perfil = { nombre: '', telefono: '', direcciones: [], pedidos: [] };
     listo = true;
     exponer(); pintarBoton();
     if (overlay) { if (user) { tab = 'perfil'; mensaje = ''; } pintarModal(); }
@@ -368,6 +362,17 @@ Storage.prototype.setItem = function (k, v) {
 async function alPedir(o) {
   if (!user || !o) return;
   let cambio = false;
+  // guardar un resumen del pedido en el perfil (historial del cliente, en cualquier dispositivo)
+  perfil.pedidos = Array.isArray(perfil.pedidos) ? perfil.pedidos : [];
+  const idp = o.id || ('p' + Date.now());
+  if (!perfil.pedidos.some((x) => x.id === idp)) {
+    perfil.pedidos.unshift({
+      id: idp, tienda: o.tienda || '', total: Number(o.total) || 0, estado: o.estado || 'pendiente', hora: o.hora || '',
+      creado: o.creado || new Date().toISOString(),
+      productos: (o.productos || []).map((x) => ({ cantidad: x.cantidad, nombre: x.nombre })),
+    });
+    perfil.pedidos = perfil.pedidos.slice(0, 30); cambio = true;
+  }
   if (!perfil.nombre && o.cliente) { perfil.nombre = o.cliente; cambio = true; }
   if (!perfil.telefono && o.telefono) { perfil.telefono = o.telefono; cambio = true; }
   const dir = String(o.direccion || '').trim();
