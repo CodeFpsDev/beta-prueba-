@@ -29,7 +29,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             <CheckCircle2 className="w-10 h-10 stroke-[2.5]" />
           </div>
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-            ¡Pedido Enviado!
+            ¡Pedido en Proceso!
           </span>
           <h3 className="text-2xl font-black text-gray-900 font-display mt-2">
             ¡Gracias por tu pedido!
@@ -78,7 +78,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             className="w-full bg-[#F85800] hover:bg-[#D94E00] text-white py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition-all"
           >
             <MessageSquare className="w-4 h-4 fill-white" />
-            <span>Abrir chat de WhatsApp de nuevo</span>
+            <span>Confirmar pedido</span>
           </a>
 
           <div className="grid grid-cols-2 gap-2">

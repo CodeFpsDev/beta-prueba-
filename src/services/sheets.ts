@@ -47,8 +47,9 @@ export function resolveImageUrl(url: string | undefined | null, type: 'locales' 
   if (/^(https?:)?\/\//.test(val) || val.startsWith('data:')) {
     return val;
   }
-  // GitHub repo file
-  return `${GITHUB_ASSETS_BASE}${encodeURIComponent(val)}`;
+  // Nombre de archivo: se busca primero en la carpeta fotos/ de este repo.
+  // Si no está, zory-auth.js prueba con el repo antiguo (GITHUB_ASSETS_BASE) y por último muestra una imagen "Sin foto".
+  return `./fotos/${encodeURIComponent(val)}`;
 }
 
 export function parseCSV(text: string): Record<string, string>[] {

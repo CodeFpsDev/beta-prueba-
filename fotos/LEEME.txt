@@ -1,0 +1,17 @@
+CARPETA DE FOTOS DE ZORY DELIVERY
+
+Subí acá las fotos de locales (logo, banner) y de productos.
+En tu hoja de cálculo escribí SOLO el nombre del archivo, tal cual, con la extensión:
+
+    Locales   -> columnas logo y banner     ej: bacoa-logo.webp
+    Productos -> columna imagen             ej: hamburguesa-completa.webp
+
+Reglas:
+- Sin espacios, tildes ni mayúsculas en el nombre (usá guiones): milanesa-completa.webp
+- Formato recomendado: .webp o .jpg
+- Logo: cuadrado, 400 x 400 px
+- Banner del local: 1200 x 600 px (horizontal)
+- Foto de producto: 600 x 600 px (cuadrada), menos de 150 KB
+- Si la foto no está acá, la app la busca en el repo antiguo (zory-beta-2.0).
+  Si tampoco está, muestra una imagen "Sin foto".
+- También podés pegar un enlace completo (https://...) en la hoja.
