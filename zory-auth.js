@@ -42,6 +42,8 @@ const css = `
 .zy-btn:hover{background:#FFF4EC}.zy-btn:active{transform:scale(.96)}
 /* El carrito de arriba se oculta: queda el botón de carrito de la barra inferior */
 header .zh-cart{display:none!important}
+/* Se quita la barra superior (ubicación y "Abierto ahora") para que el encabezado sea más corto */
+header .zh-strip{display:none!important}
 .zy-btn img{width:22px;height:22px;border-radius:9999px;object-fit:cover;flex:none}
 .zy-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .zy-btn .zy-txt{display:none}
@@ -381,3 +383,24 @@ async function alPedir(o) {
   }
   if (cambio) await guardarPerfil();
 }
+
+/* ---------- fotos: carpeta fotos/ del repo nuevo -> repo antiguo -> imagen "Sin foto" ---------- */
+const REPO_VIEJO = 'https://raw.githubusercontent.com/zorydelivery-ship-it/zory-beta-2.0/main/';
+const SIN_FOTO = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="#FFE6D5"/>' +
+  '<g fill="none" stroke="#F85800" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity=".55"><rect x="150" y="105" width="100" height="75" rx="14"/><circle cx="200" cy="142" r="20"/></g>' +
+  '<text x="200" y="225" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#D94E00" opacity=".7">Sin foto</text></svg>');
+window.addEventListener('error', (ev) => {
+  const im = ev.target;
+  if (!im || im.tagName !== 'IMG' || !im.closest('#root') || im.src === SIN_FOTO) return;
+  // Evita que la app cambie la foto por una genérica de comida antes de probar las otras opciones
+  ev.stopPropagation();
+  if ((im.dataset.zf || '0') === '0') {
+    let nombre = '';
+    try { const u = new URL(im.src, location.href); if (u.pathname.includes('/fotos/')) nombre = u.pathname.split('/fotos/').pop(); } catch (e) { /* ignorar */ }
+    im.dataset.zf = '1';
+    if (nombre) { im.src = REPO_VIEJO + nombre; return; }
+  }
+  im.dataset.zf = '2';
+  im.src = SIN_FOTO;
+}, true);
